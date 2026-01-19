@@ -1,5 +1,5 @@
 import './App.css'
-import {createTheme, ThemeProvider} from '@mui/material/styles'
+import {ThemeProvider} from '@mui/material/styles'
 import {useAppDispatch} from '../common/hooks/useAppDispatch'
 import {useAppSelector} from '../common/hooks/useAppSelector'
 import {CreateItemForm} from '../CreateItemForm'
@@ -13,20 +13,13 @@ import {
 } from '../model/todolists-reducer'
 import {selectTodolists} from '../model/todolists-selectors'
 import {TodolistItem} from '../TodolistItem'
-import AppBar from '@mui/material/AppBar'
-import Toolbar from '@mui/material/Toolbar'
-import IconButton from '@mui/material/IconButton'
-import MenuIcon from '@mui/icons-material/Menu'
 import Container from '@mui/material/Container'
 import Grid from '@mui/material/Grid2'
 import Paper from '@mui/material/Paper'
-import Switch from '@mui/material/Switch'
 import CssBaseline from '@mui/material/CssBaseline'
-import {containerSx} from '../TodolistItem.styles'
-import {NavButton} from '../NavButton'
-import {selectThemeMode} from "./app-selectors.ts";
-import {changeThemeModeAC} from "./app-reducer.ts";
-import {getTheme} from "../common/theam/theme.ts";
+import {Header} from "@/Header.tsx";
+import {selectThemeMode} from "@/app/app-selectors.ts";
+import {getTheme} from "@/common/theam/theme.ts";
 
 export type Todolist = {
     id: string
@@ -50,14 +43,7 @@ export const App = () => {
     const themeMode = useAppSelector(selectThemeMode)
 
     const dispatch = useAppDispatch()
-
-    // const [themeMode, setThemeMode] = useState<ThemeMode>('light')
-
     const theme = getTheme(themeMode)
-
-    const changeMode = () => {
-        dispatch(changeThemeModeAC({themeMode : themeMode === 'light' ? 'dark' : 'light'}))
-    }
 
     const changeFilter = (todolistId: string, filter: FilterValues) => {
         dispatch(changeTodolistFilterAC({id: todolistId, filter}))
@@ -95,21 +81,7 @@ export const App = () => {
         <ThemeProvider theme={theme}>
             <div className={'app'}>
                 <CssBaseline/>
-                <AppBar position="static" sx={{mb: '30px'}}>
-                    <Toolbar>
-                        <Container maxWidth={'lg'} sx={containerSx}>
-                            <IconButton color="inherit">
-                                <MenuIcon/>
-                            </IconButton>
-                            <div>
-                                <NavButton>Sign in</NavButton>
-                                <NavButton>Sign up</NavButton>
-                                <NavButton background={theme.palette.primary.dark}>Faq</NavButton>
-                                <Switch color={'default'} onChange={changeMode}/>
-                            </div>
-                        </Container>
-                    </Toolbar>
-                </AppBar>
+                <Header/>
                 <Container maxWidth={'lg'}>
                     <Grid container sx={{mb: '30px'}}>
                         <CreateItemForm onCreateItem={createTodolist}/>
