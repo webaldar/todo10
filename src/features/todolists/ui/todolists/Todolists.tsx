@@ -1,8 +1,8 @@
 import {useAppSelector} from "@/common/hooks/useAppSelector.ts";
-import {selectTodolists} from "@/model/todolists-selectors.ts";
+import {selectTodolists} from "@/features/todolists/model/todolists-selectors.ts";
 import Grid from "@mui/material/Grid2";
 import Paper from "@mui/material/Paper";
-import {TodolistItem} from "@/TodolistItem.tsx";
+import {TodolistItem} from "@/features/todolists/ui/todolists/todolistItem/TodolistItem.tsx";
 
 export  const Todolists = () => {
 
